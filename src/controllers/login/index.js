@@ -1,7 +1,7 @@
 import {celebrate, Joi} from 'celebrate';
 import jwt from 'jsonwebtoken';
 import {UserModel} from '../../db';
-import {encrypt} from '../../common/crypto';
+import encrypt from '../../common/crypto';
 
 /**
  * @description Login controller.
@@ -20,15 +20,15 @@ export default class Login {
     const user = await UserModel.findOne({login, password: encrypt(password)});
 
     // TODO: Return an error for wrong password AND login not found instead of global error.
-    if(user === null) {
+    if (user === null) {
       return res.status(400).send();
     }
 
     const token = jwt.sign({sub: user._id}, process.env.API_JWT_SECRET, {
       algorithm: process.env.API_JWT_ALGORITHM,
       expiresIn: process.env.API_JWT_EXPIRATION,
-      audience: "foncia.com",
-      issuer: "api.foncia.com"
+      audience: 'foncia.com',
+      issuer: 'api.foncia.com',
     });
 
     // TODO: Store token + provide token cleanup feature
@@ -46,7 +46,9 @@ export default class Login {
       {
         body: {
           login: Joi.string().required(),
-          password: Joi.string().min(6).required(),
+          password: Joi.string()
+            .min(6)
+            .required(),
         },
       },
       {abortEarly: false},
