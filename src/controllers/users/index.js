@@ -27,7 +27,7 @@ export default class Users {
     await Acl.addUserRoles(user._id, roles.gestionnaire);
 
     // TODO: Send email confirmation with token to verify account
-    return res.status(200).send();
+    return res.status(204).send();
   }
 
   /**
