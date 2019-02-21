@@ -10,6 +10,7 @@ describe('[POST] - /login', () => {
         password: 'myfonciapassword',
       })
       .set('Content-Type', 'application/json');
+
     expect(signIn.statusCode).toEqual(204);
     done();
 
@@ -20,6 +21,7 @@ describe('[POST] - /login', () => {
         password: 'myfonciapassword',
       })
       .set('Content-Type', 'application/json');
+
     expect(response.statusCode).toEqual(200);
     expect(response.body).toHaveProperty('token');
     done();
@@ -33,6 +35,7 @@ describe('[POST] - /login', () => {
         password: 'wrongPassword',
       })
       .set('Content-Type', 'application/json');
+
     expect(response.statusCode).toEqual(400);
     done();
   });
