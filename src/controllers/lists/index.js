@@ -1,5 +1,5 @@
+import {celebrate, Joi} from 'celebrate';
 import {LotModel} from '../../db';
-import _ from 'lodash';
 
 /**
  * @description Lists controller.
@@ -13,25 +13,43 @@ export default class Lists {
    * @return {Promise<*>}
    */
   static async read(req, res, next) {
-    // TODO: Aggregate possible
-    const LotsClients = await LotModel.find({}, 'surface').populate('client', 'fullname email');
+    const aggregate = LotModel.aggregate();
+    aggregate
+      .lookup({from: 'clients', localField: 'client', foreignField: '_id', as: 'client'})
+      .group({_id: '$client.email', lots: {$sum: 1}, fullname: {$addToSet: '$client.fullname'}});
 
-    const arr = LotsClients.map((item) => {
+    const options = {
+      page: parseInt(req.query.page, 10) || 1,
+      limit: 10,
+    };
+
+    const {data, pageCount, totalCount} = await LotModel.aggregatePaginate(aggregate, options);
+
+    const results = data.map((item) => {
       return {
-        email: item.client.email,
-        fullname: item.client.fullname,
-        surface: item.surface,
-      }
+        email: item._id[0],
+        fullname: item.fullname[0][0],
+        lots: item.lots,
+      };
     });
 
-    const result = _.chain(arr).groupBy('email').map((item, index) => {
-      return {
-        email: index,
-        fullname: _.get(_.find(item, 'fullname'), 'fullname'),
-        lots: _.map(item, 'surface').length,
-      }
-    }).value();
+    return res
+      .status(200)
+      .send({results, pagination: {current: options.page, pageCount, totalCount}});
+  }
 
-    return res.status(200).send({result});
+  /**
+   * @description Read validator.
+   * @return {}
+   */
+  static readValidator() {
+    return celebrate(
+      {
+        query: {
+          page: Joi.number().optional(),
+        },
+      },
+      {abortEarly: false},
+    );
   }
 }
