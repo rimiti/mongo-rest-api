@@ -1,7 +1,7 @@
 import {celebrate, Joi} from 'celebrate';
 import {UserModel} from '../../db';
-import {encrypt} from '../../common/crypto';
-import Acl, {roles} from '../../acl'
+import encrypt from '../../common/crypto';
+import Acl, {roles} from '../../acl';
 
 /**
  * @description Users controller.
@@ -18,7 +18,7 @@ export default class Users {
     const {login, password} = req.body;
 
     const exists = await UserModel.findOne({login, password: encrypt(password)});
-    if(exists !== null) {
+    if (exists !== null) {
       return res.status(400).send();
     }
 
@@ -39,7 +39,9 @@ export default class Users {
       {
         body: {
           login: Joi.string().required(),
-          password: Joi.string().min(6).required(),
+          password: Joi.string()
+            .min(6)
+            .required(),
         },
       },
       {abortEarly: false},
