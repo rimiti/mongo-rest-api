@@ -4,12 +4,12 @@
 
 Foncia technical test.
 
-## How to use it?
-
 ## Pre-requirements
 
 - Docker
 - Docker Compose
+
+## How to use it?
 
 ### Tests
 
