@@ -1,0 +1,66 @@
+version: '3.7'
+
+services:
+  initializer:
+    build: .
+    depends_on:
+      - redis
+      - mongo
+    environment:
+      NODE_ENV: development
+    volumes:
+      - .:/api
+    networks:
+      - api-network
+    restart: always
+    command: yarn docker:init:development
+
+  api:
+    container_name: api
+    build: .
+    networks:
+      - api-network
+    depends_on:
+      - redis
+      - mongo
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/api
+    restart: always
+    command: sh -c 'yarn watch:dev:api'
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    networks:
+      - api-network
+    environment:
+      MONGO_INITDB_DATABASE: api
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./mongo/dump:/dump
+    ports:
+      - 27017:27017
+    restart: always
+
+  redis:
+    container_name: redis
+    image: library/redis:4
+    networks:
+      - api-network
+    ports:
+      - 6379:6379
+    volumes:
+      - data_redis:/data
+    restart: always
+    command: redis-server --appendonly yes --port 6379
+
+networks:
+  api-network:
+    driver: bridge
+
+volumes:
+  data_redis:
+    driver: "local"
