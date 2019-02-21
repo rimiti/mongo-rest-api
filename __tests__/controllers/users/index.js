@@ -10,6 +10,7 @@ describe('[POST] - /users', () => {
         password: 'mypassword',
       })
       .set('Content-Type', 'application/json');
+
     expect(response.statusCode).toEqual(204);
     done();
   });
@@ -22,6 +23,7 @@ describe('[POST] - /users', () => {
         password: 'mypassword',
       })
       .set('Content-Type', 'application/json');
+
     expect(response.statusCode).toEqual(400);
     done();
   });
