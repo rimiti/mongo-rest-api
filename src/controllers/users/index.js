@@ -38,7 +38,7 @@ export default class Users {
     return celebrate(
       {
         body: {
-          login: Joi.string().email({minDomainAtoms: 2}).required(),
+          login: Joi.string().required(),
           password: Joi.string().min(6).required(),
         },
       },
