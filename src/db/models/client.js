@@ -1,7 +1,7 @@
-import {Schema, model} from "mongoose";
+import {Schema} from "mongoose";
 
-export default model('Client', new Schema({
-  fullname:  String,
+export default new Schema({
+  fullname: String,
   email: String,
   email2: String,
   telDomicile: String,
@@ -10,4 +10,4 @@ export default model('Client', new Schema({
   telMobile2: String,
   fax: String,
   sexe: String,
-}));
+});

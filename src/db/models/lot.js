@@ -1,6 +1,6 @@
-import {Schema, model} from "mongoose";
+import {Schema} from "mongoose";
 
-export default model('Lot', new Schema({
+export default new Schema({
   client:  { type: 'ObjectId', ref: 'Client' },
   surface: Number,
-}));
+});
