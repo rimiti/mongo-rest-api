@@ -1,8 +1,8 @@
-# foncia-test
+# mongo-rest-api
 
 ## Description
 
-Foncia technical test.
+Simple Dockerized API which uses Mongo, Aclify, Express, Pagination, Authentication.
 
 ## Pre-requirements
 
