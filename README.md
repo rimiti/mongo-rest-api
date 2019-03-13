@@ -2,7 +2,7 @@
 
 ## Description
 
-Simple Dockerized API which uses Mongo, Aclify, Express, Pagination, Authentication.
+Simple Dockerized API which uses Mongo, Aclify, Express, Pagination, JWT, Celebrate...
 
 ## Pre-requirements
 
