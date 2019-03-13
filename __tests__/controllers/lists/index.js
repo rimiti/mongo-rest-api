@@ -7,7 +7,7 @@ describe('[POST] - /lists', () => {
       .post(`/users`)
       .send({
         login: 'john3',
-        password: 'myfonciapassword',
+        password: 'myPassword',
       })
       .set('Content-Type', 'application/json');
 
@@ -17,7 +17,7 @@ describe('[POST] - /lists', () => {
       .post(`/login`)
       .send({
         login: 'john3',
-        password: 'myfonciapassword',
+        password: 'myPassword',
       })
       .set('Content-Type', 'application/json');
 
