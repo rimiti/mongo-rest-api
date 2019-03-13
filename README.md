@@ -1,5 +1,7 @@
 # mongo-rest-api
 
+[![Build Status](https://travis-ci.org/rimiti/mongo-rest-api.svg?branch=master)](https://travis-ci.org/rimiti/mongo-rest-api) [![codecov](https://codecov.io/gh/rimiti/mongo-rest-api/branch/master/graph/badge.svg)](https://codecov.io/gh/rimiti/mongo-rest-api)
+
 ## Description
 
 Simple Dockerized API which uses Mongo, Aclify, Express, Pagination, JWT, Celebrate...
