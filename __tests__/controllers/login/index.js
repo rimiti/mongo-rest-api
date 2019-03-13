@@ -7,7 +7,7 @@ describe('[POST] - /login', () => {
       .post(`/users`)
       .send({
         login: 'john',
-        password: 'myfonciapassword',
+        password: 'myPassword',
       })
       .set('Content-Type', 'application/json');
 
@@ -18,7 +18,7 @@ describe('[POST] - /login', () => {
       .post(`/login`)
       .send({
         login: 'john',
-        password: 'myfonciapassword',
+        password: 'myPassword',
       })
       .set('Content-Type', 'application/json');
 
