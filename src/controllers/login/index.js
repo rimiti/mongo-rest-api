@@ -27,8 +27,8 @@ export default class Login {
     const token = jwt.sign({sub: user._id}, process.env.API_JWT_SECRET, {
       algorithm: process.env.API_JWT_ALGORITHM,
       expiresIn: process.env.API_JWT_EXPIRATION,
-      audience: 'foncia.com',
-      issuer: 'api.foncia.com',
+      audience: 'example.com',
+      issuer: 'api.example.com',
     });
 
     // TODO: Store token + provide token cleanup feature
